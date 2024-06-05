@@ -1,0 +1,344 @@
+*,
+*::after,
+*::before {
+	box-sizing: border-box;
+}
+
+:root {
+	font-size: 12px;
+	--color-text: rgba(255,255,255,0.6);
+	--color-bg: #000;
+	--color-link: #fff;
+	--color-link-hover: #fff;
+	--page-padding: 1.5rem;
+	--color-grad-1: #081326;
+	--color-grad-2: #24112f;
+}
+
+body {
+	margin: 0;
+	color: var(--color-text);
+	background-color: var(--color-bg);
+	font-family: area-normal, -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	height: 100dvh;
+  width: 100%;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  background-image: url(../img/noise.png), radial-gradient(ellipse at top, var(--color-grad-1), transparent), radial-gradient(ellipse at bottom, var(--color-grad-2), transparent);
+  background-size: 180px, 100%, 200%;
+  background-attachment: fixed;
+}
+
+.demo-2 {
+	--color-bg: #1b110a;
+	--color-grad-1: #17110f;
+	--color-grad-2: #1b110a;
+	background-size: 100px, 100%, 200%;
+}
+
+.demo-3 {
+	--color-bg: #92676c;
+	--color-grad-1: #334669;
+	--color-grad-2: #0e2284;
+}
+
+/* Page Loader */
+.js .loading::before,
+.js .loading::after {
+	content: '';
+	position: fixed;
+	z-index: 1000;
+}
+
+.js .loading::before {
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: var(--color-bg);
+}
+
+.js .loading::after {
+	top: 50%;
+	left: 50%;
+	width: 60px;
+	height: 60px;
+	margin: -30px 0 0 -30px;
+	border-radius: 50%;
+	opacity: 0.4;
+	background: var(--color-link);
+	animation: loaderAnim 0.7s linear infinite alternate forwards;
+
+}
+
+@keyframes loaderAnim {
+	to {
+		opacity: 1;
+		transform: scale3d(0.5,0.5,1);
+	}
+}
+
+a {
+	text-decoration: none;
+	color: var(--color-link);
+	outline: none;
+	cursor: pointer;
+}
+
+a:hover {
+	text-decoration: underline;
+	color: var(--color-link-hover);
+	outline: none;
+}
+
+/* Better focus styles from https://developer.mozilla.org/en-US/docs/Web/CSS/:focus-visible */
+a:focus {
+	/* Provide a fallback style for browsers
+	 that don't support :focus-visible */
+	outline: none;
+	background: lightgrey;
+}
+
+a:focus:not(:focus-visible) {
+	/* Remove the focus indicator on mouse-focus for browsers
+	 that do support :focus-visible */
+	background: transparent;
+}
+
+a:focus-visible {
+	/* Draw a very noticeable focus style for
+	 keyboard-focus on browsers that do support
+	 :focus-visible */
+	outline: 2px solid red;
+	background: transparent;
+}
+
+.unbutton {
+	background: none;
+	border: 0;
+	padding: 0;
+	margin: 0;
+	font: inherit;
+	cursor: pointer;
+}
+
+.unbutton:focus {
+	outline: none;
+}
+
+.frame {
+	padding: var(--page-padding);
+	position: relative;
+	display: grid;
+	z-index: 1000;
+	width: 100%;
+	height: 100%;
+	grid-row-gap: 1rem;
+	grid-column-gap: 2rem;
+	pointer-events: none;
+	justify-items: start;
+	grid-template-columns: auto auto;
+	grid-template-areas: 'title' 'archive' 'back' 'github' 'sponsor' 'demos';
+}
+
+.frame #cdawrap {
+  justify-self: start;
+}
+
+.frame a {
+  pointer-events: auto;
+}
+
+.frame__title {
+  grid-area: title;
+  font-size: inherit;
+  font-weight: inherit;  
+  margin: 0;
+}
+
+.frame__back {
+  grid-area: back;
+  justify-self: start;
+}
+
+.frame__archive {
+  grid-area: archive;
+  justify-self: start;
+}
+
+.frame__sub {
+  grid-area: sub;
+}
+
+.frame__github {
+  grid-area: github;
+}
+
+.frame__tags {
+  grid-area: tags;
+}
+
+.frame__hire {
+  grid-area: hire;
+}
+
+.frame__demos {
+	pointer-events: auto;
+	grid-area: demos;
+	display: flex;
+	gap: 1rem;
+}
+
+main {
+	display: grid;
+	position: relative;
+	grid-template-areas: 'main';
+	grid-template-columns: 100%;
+	grid-template-rows: 100%;
+
+	--cgap: 5%;
+	--rgap: 5%;
+	--rows: 7;
+	--columns: 7;
+
+	--item-width: calc((100% + (var(--columns) - 1) * var(--cgap)) / var(--columns));
+	--item-height: calc((100% + (var(--rows) - 1) * var(--rgap)) / var(--rows));
+
+	width: calc(100% + var(--item-width) * 2 + var(--cgap) * 2);
+	height: calc(100% + var(--item-height) * 2 + var(--rgap) * 2);
+
+	left: calc(-1 * var(--item-width) - var(--cgap));
+	top: calc(-1 * var(--item-height) - var(--rgap));
+}
+
+.grid {
+	grid-area: main;
+	display: grid;
+	grid-auto-flow: column;
+	grid-template-columns: repeat(var(--columns),1fr);
+	grid-template-rows: repeat(var(--rows),1fr);
+	grid-row-gap: var(--rgap);
+	grid-column-gap: var(--cgap);
+	pointer-events: none;
+}
+
+.grid--asym {
+	--columns: 8;
+}
+
+.grid__item {
+	width: 100%;
+	height: 100%;
+	position: relative;
+  will-change: transform, opacity;
+}
+
+.pos-1 { grid-area: 2 / 2 / 3 / 3; }
+.pos-2 { grid-area: 4 / 2 / 5 / 3; }
+.pos-3 { grid-area: 6 / 2 / 7 / 3; }
+.pos-4 { grid-area: 3 / 3 / 4 / 4; }
+.pos-5 { grid-area: 5 / 3 / 6 / 4; }
+.pos-6 { grid-area: 2 / 4 / 3 / 5; }
+.pos-7 { grid-area: 4 / 4 / 5 / 5; }
+.pos-8 { grid-area: 6 / 4 / 7 / 5; }
+.pos-9 { grid-area: 3 / 5 / 4 / 6; }
+.pos-10 { grid-area: 5 / 5 / 6 / 6; }
+.pos-11 { grid-area: 2 / 6 / 3 / 7; }
+.pos-12 { grid-area: 4 / 6 / 5 / 7; }
+.pos-13 { grid-area: 6 / 6 / 7 / 7; }
+.pos-14 { grid-area: 3 / 7 / 4 / 8; }
+.pos-15 { grid-area: 5 / 7 / 6 / 8; }
+.pos-north { grid-row: 1; }
+.pos-south { grid-row: var(--rows); }
+.pos-west { grid-column: 1; }
+.pos-east { grid-column: var(--columns); }
+
+.grid__img {
+	width: 100%;
+	height: 100%;
+	background-size: cover;
+	background-position: 50% 50%;
+	pointer-events: auto;
+	filter: brightness(0.6);
+	cursor: pointer;
+	will-change: transform;
+}
+
+.grid--rounded .grid__img {
+	border-radius: 12px;
+	will-change: transform, border-radius;
+}
+
+.grid--scale .grid__img {
+	aspect-ratio: 1;
+	width: auto;
+	height: 100%;
+}
+
+.fullscreen {
+	position: absolute;
+	width: calc(100% + 8px);
+	height: calc(100% + 8px);
+	top: -4px;
+	left: -4px;
+	pointer-events: none;
+}
+
+.fullscreen--rounded {
+	width: calc(100% - 30px);
+	height: calc(100% - 30px);
+	top: 15px;
+	left: 15px;
+}
+
+.fullscreen--rounded .grid__img {
+	border-radius: 20px;
+}
+
+.fullscreen--scale {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+}
+
+.fullscreen--scale .grid__img {
+	aspect-ratio: 1;
+	width: auto;
+	height: 40vh;
+}
+
+@media screen and (min-width: 53em) {
+	body {
+		--page-padding: 2.25rem 2.5rem;
+	}
+	.frame {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		grid-template-columns: auto auto auto auto 1fr;
+		grid-template-rows: auto auto;
+		align-content: space-between;
+		grid-template-areas: 'title back archive github ...' 'demos demos demos sponsor sponsor';
+	}
+	.frame #cdawrap {
+		max-width: 260px;
+		text-align: right;
+		justify-self: end;
+	}
+	.frame__demos {
+		align-self: end;
+	}
+	.frame__title {
+		margin-right: 5vw;
+	}
+
+}
