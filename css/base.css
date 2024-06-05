@@ -329,11 +329,6 @@ main {
 		align-content: space-between;
 		grid-template-areas: 'title back archive github ...' 'demos demos demos sponsor sponsor';
 	}
-	.frame #cdawrap {
-		max-width: 260px;
-		text-align: right;
-		justify-self: end;
-	}
 	.frame__demos {
 		align-self: end;
 	}
